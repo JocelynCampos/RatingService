@@ -29,10 +29,11 @@ public class SecurityConfig {
                                 "/h2-console/**",
                                 "/edufy/v1/ratings/all").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/edufy/v1/ratings").hasRole("admin")
-                        .requestMatchers(HttpMethod.GET,  "/edufy/v1/ratings/**").hasRole("admin")
-                        .requestMatchers(HttpMethod.GET,"/edufy/v1/ratings/**").hasRole("admin")
-                        .requestMatchers(HttpMethod.DELETE, "/edufy/v1/ratings/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/edufy/v1/ratings/add").hasRole("admin")
+                        .requestMatchers(HttpMethod.PUT, "/edufy/v1/ratings/update/**").hasRole("admin")
+                        //.requestMatchers(HttpMethod.GET,  "/edufy/v1/ratings/**").hasRole("admin")
+                        //.requestMatchers(HttpMethod.GET,"/edufy/v1/ratings/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.DELETE, "/edufy/v1/ratings/delete/**").hasRole("admin")
 
                         .anyRequest().authenticated()
                 )
