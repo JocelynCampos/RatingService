@@ -21,6 +21,13 @@ public class Ratings {
     @Column(nullable = false)
     private boolean liked;
 
+    public Ratings() {}
+
+    public Ratings(Long id, String userId, String mediaId, boolean liked) {
+        this.id = id;
+        this.userId = userId;
+    }
+
     public Long getId() {
         return id;
     }
