@@ -27,12 +27,12 @@ public class SecurityConfig {
 
                         .requestMatchers("/edufy/v1/ratings/test",
                                 "/h2-console/**",
-                                "/edufy/v1/ratings/all").permitAll()
+                                "/edufy/v1/ratings/all").permitAll() //<-- only for DEV
 
-                        .requestMatchers(HttpMethod.POST, "/edufy/v1/ratings/add").hasRole("admin")
-                        .requestMatchers(HttpMethod.PUT, "/edufy/v1/ratings/update/**").hasRole("admin")
-                        //.requestMatchers(HttpMethod.GET,  "/edufy/v1/ratings/**").hasRole("admin")
-                        //.requestMatchers(HttpMethod.GET,"/edufy/v1/ratings/**").hasRole("admin")
+                        .requestMatchers(HttpMethod.POST, "/edufy/v1/ratings/rate").hasRole("user")
+                        .requestMatchers(HttpMethod.GET, "/edufy/v1/ratings/user/**").hasRole("user")
+                        .requestMatchers(HttpMethod.GET, "/edufy/v1/ratings/all").hasRole("admin")
+                        .requestMatchers(HttpMethod.GET,  "/edufy/v1/ratings/stats/**").hasRole("admin")
                         .requestMatchers(HttpMethod.DELETE, "/edufy/v1/ratings/delete/**").hasRole("admin")
 
                         .anyRequest().authenticated()
