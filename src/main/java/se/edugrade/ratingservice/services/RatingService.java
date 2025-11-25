@@ -73,13 +73,15 @@ public class RatingService implements RatingServiceInterface {
     /***********AdminController************/
 
     @Override
+    @Transactional(readOnly = true)
     public List<RatingResponseDTO> findAll() {
-        if (ratingRepository.findAll().isEmpty()) {
+
+        var all = ratingRepository.findAll();
+        if (all.isEmpty()) {
             logger.warn("No Ratings found");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return List.of();
         }
-        return ratingRepository.findAll()
-                .stream()
+        return all.stream()
                 .map(r -> new RatingResponseDTO(
                         r.getId(),
                         r.getUserId(),
@@ -92,6 +94,7 @@ public class RatingService implements RatingServiceInterface {
     @Override
     public void deleteById(Long id) {
         if(!ratingRepository.existsById(id)) {
+            logger.warn("Rating with this id does not exist");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         ratingRepository.deleteById(id);
