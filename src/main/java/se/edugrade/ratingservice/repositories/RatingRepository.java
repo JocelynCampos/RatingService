@@ -11,4 +11,6 @@ public interface RatingRepository extends JpaRepository<Ratings, Long> {
     List<Ratings> findByUserId(String userId);
     Optional<Ratings> findByUserIdAndMediaId(String userId, String mediaId);
     Long countByMediaIdAndLiked(String mediaId, boolean liked);
+
+    Ratings id(Long id);
 }
