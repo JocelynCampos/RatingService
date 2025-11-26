@@ -91,11 +91,6 @@ class RatingServiceTest {
         verify(rateRepo).save(any(Ratings.class));
     }
 
-
-
-
-
-
     /*************Delete******************/
 
     @Test
@@ -108,5 +103,23 @@ class RatingServiceTest {
         verify(rateRepo, never()).deleteById(anyLong());
         verify(rateRepo, never()).save(any());
     }
+
+    /*************Statistics******************/
+
+    @Test
+    void statsRating() {
+        when(rateRepo.countByMediaIdAndLiked("MovieOne", true)).thenReturn(10L);
+        when(rateRepo.countByMediaIdAndLiked("MovieOne", false)).thenReturn(8L);
+        var stats = rateService.getMediaStats("MovieOne");
+
+        assertNotNull(stats);
+        assertEquals(10L, stats.thumbsUp());
+        assertEquals(8L, stats.thumbsDown());
+
+        verify(rateRepo).countByMediaIdAndLiked("MovieOne", true);
+        verify(rateRepo).countByMediaIdAndLiked("MovieOne", false);
+
+    }
+
 
 }
